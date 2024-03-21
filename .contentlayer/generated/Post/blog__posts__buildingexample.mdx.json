@@ -1,0 +1,28 @@
+{
+  "title": "Introducing the Blog",
+  "description": "A First Blog post to test things",
+  "date": "2024-03-20T00:00:00.000Z",
+  "category": "Building",
+  "image": "/posts/msd.jpg",
+  "body": {
+    "raw": "\nThis is my first blog post! \n\n## Explaining the Picture\n\nIt's Jerry",
+    "code": "var Component=(()=>{var h=Object.create;var r=Object.defineProperty;var g=Object.getOwnPropertyDescriptor;var d=Object.getOwnPropertyNames;var m=Object.getPrototypeOf,u=Object.prototype.hasOwnProperty;var x=(n,t)=>()=>(t||n((t={exports:{}}).exports,t),t.exports),j=(n,t)=>{for(var s in t)r(n,s,{get:t[s],enumerable:!0})},a=(n,t,s,o)=>{if(t&&typeof t==\"object\"||typeof t==\"function\")for(let i of d(t))!u.call(n,i)&&i!==s&&r(n,i,{get:()=>t[i],enumerable:!(o=g(t,i))||o.enumerable});return n};var f=(n,t,s)=>(s=n!=null?h(m(n)):{},a(t||!n||!n.__esModule?r(s,\"default\",{value:n,enumerable:!0}):s,n)),_=n=>a(r({},\"__esModule\",{value:!0}),n);var p=x((C,c)=>{c.exports=_jsx_runtime});var F={};j(F,{default:()=>B,frontmatter:()=>y});var e=f(p()),y={title:\"Introducing the Blog\",description:\"A First Blog post to test things\",date:\"2024-03-20\",category:\"Building\",image:\"/posts/msd.jpg\"};function l(n){let t=Object.assign({p:\"p\",h2:\"h2\",a:\"a\",span:\"span\"},n.components);return(0,e.jsxs)(e.Fragment,{children:[(0,e.jsx)(t.p,{children:\"This is my first blog post!\"}),`\n`,(0,e.jsxs)(t.h2,{id:\"explaining-the-picture\",children:[(0,e.jsx)(t.a,{className:\"anchor\",href:\"#explaining-the-picture\",children:(0,e.jsx)(t.span,{className:\"icon icon-link\"})}),\"Explaining the Picture\"]}),`\n`,(0,e.jsx)(t.p,{children:\"It's Jerry\"})]})}function b(n={}){let{wrapper:t}=n.components||{};return t?(0,e.jsx)(t,Object.assign({},n,{children:(0,e.jsx)(l,n)})):l(n)}var B=b;return _(F);})();\n;return Component;"
+  },
+  "_id": "blog/posts/buildingexample.mdx",
+  "_raw": {
+    "sourceFilePath": "blog/posts/buildingexample.mdx",
+    "sourceFileName": "buildingexample.mdx",
+    "sourceFileDir": "blog/posts",
+    "contentType": "mdx",
+    "flattenedPath": "blog/posts/buildingexample"
+  },
+  "type": "Post",
+  "slug": "/blog/posts/buildingexample",
+  "slugAsParams": "posts/buildingexample",
+  "readingTime": {
+    "text": "1 min read",
+    "minutes": 0.06,
+    "time": 3600,
+    "words": 12
+  }
+}
