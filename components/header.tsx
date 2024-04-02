@@ -29,7 +29,7 @@ export function Header() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <Link href="/" className="text-3xl font-black">
+              <Link href="/" className="text-sm font-black mr-6">
                 {process.env.NEXT_PUBLIC_SITE_NAME}
               </Link>
             </div>
