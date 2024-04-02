@@ -68,7 +68,7 @@ export default function Blog() {
             <CardFooter>
               <Link
                 href={post.slug}
-                className="inline-flex items-center space-x-2 rounded-sm bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white no-underline hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-colordanger dark:hover:bg-colordangerbright dark:focus:ring-secondaryhover"
+                className="inline-flex items-center space-x-2 rounded-sm bg-colordanger px-3 py-2 text-center text-sm font-medium text-white no-underline hover:bg-colordangerbright focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-colordanger dark:hover:bg-colordangerbright dark:focus:ring-secondaryhover"
               >
                 <span>Read more</span>
                 <ArrowRightIcon className="h-5 w-5" />
