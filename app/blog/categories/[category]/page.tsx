@@ -36,6 +36,12 @@ export async function generateStaticParams(): Promise<PostProps["params"][]> {
 export default async function CategoryPostsPage({ params }: PostProps) {
   const posts = await getPostsFromParams(params);
 
+  posts.sort((a, b) => {
+    const aDate = new Date(a.date).valueOf();
+    const bDate = new Date(b.date).valueOf();
+    return bDate - aDate;
+  });
+
   return (
     <div className="space-y-12">
       <header className="flex items-center space-x-2">

@@ -13,6 +13,12 @@ import {
   CardTitle,
 } from "@/components/card";
 
+allPosts.sort((a, b) => {
+  const aDate = new Date(a.date).valueOf();
+  const bDate = new Date(b.date).valueOf();
+  return bDate - aDate;
+});
+
 export default function Blog() {
   return (
     <div>
