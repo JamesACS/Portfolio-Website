@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-evenly">
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:opacity-30 before:bg-gradient-radial before:from-colorquinternary before:to-transparent before:blur-3xl before:content-[''] after:absolute after:-z-20 after:h-[220px] after:w-[350px] after:translate-x-1/3 after:bg-gradient-conic after:opacity-50 after:from-sky-900 after:via-colorsuccessdark after:blur-3xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:via-colorquinternary before:dark:opacity-20 after:dark:from-sky-900 after:dark:via-colorsuccessdark after:dark:opacity-60 before:lg:h-[360px] z-[-1]">
+      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:opacity-30 before:bg-gradient-radial before:from-colorquinternary before:to-transparent before:blur-3xl before:content-[''] after:absolute after:-z-20 after:h-[220px] after:w-[350px] after:translate-x-1/3 after:bg-gradient-conic after:opacity-50 after:from-sky-900 after:via-colorsuccessdark after:blur-3xl after:content-[''] after:to-transparent before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:via-colorquinternary before:dark:opacity-20 after:dark:from-sky-900 after:dark:via-colorsuccessdark after:dark:opacity-60 before:lg:h-[360px] z-[-1]">
         <p className="relative dark:drop-shadow-[0_0_0.4rem_#ffffff70] text-5xl ">
           James Amey
         </p>
