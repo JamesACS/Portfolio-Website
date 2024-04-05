@@ -1,0 +1,72 @@
+---
+title: Building this site
+description: The whys and the hows
+date: "2024-04-05"
+category: Coding
+image: /posts/next-js-logo.jpg
+---
+
+I've always wanted to get into coding. I remember having one of the more 'custom' myspace pages back in the day because I loved playing around with the styling. In fact I remember rejecting Facebook for a good amount of time because I felt it took too much away from the user in favour of a uniform experience. 
+
+But, between ADHD and general life I never found the time or motivation. Until last year. 
+
+## Finding my way back to development
+
+Last year CodeSandbox paid for me to go onto a web development essentials course with the now sadly closed down CodeClan. The course had it's pros and cons, but it did what it advertised. It taught me the essentials, and lit that 'fire' in me again. 
+
+Following on from the course, I began getting more involved with the developer side. Making more and more PRs and Commits for the website and made product. Taking it on myself as Support lead to locate the sources of problems and fix them. As opposed to the minor tweaks I had been doing previously. 
+
+I did this on top of my other responsibilities. Anybody who has worked in a start up will be familiar with the responsibility creep that occurs the longer you stay with the company. I actually put a list of job titles together that would have covered everything I did while talking with a colleague yesterday. There were 12 off the top of my head. I was doing everything from writing and recording voiceovers for marketing content, to designing, writing and implementing policies so we could pass cybersecurity certifications.
+
+One of those titles was Project Manager. I had managed the development of our backend tooling, moving to a new billing platform and most relevant to this post and topic - transitioning to a new CRM provider. The good folks over at [Plain](https://www.plain.com/).
+
+Plain is aimed at product focused companies, like CodeSandbox. A part of this is that they have a well documented API and contact form templates. 
+
+I wanted to implement one of these contact forms to streamline and improve support. One thing led to another, as they do at start ups and I ended up migrating the main website from the Next.JS pages to app router. 
+
+Just another skill in the cap of a Support Lead. 
+
+One of the things that continually gave me a headache when doing the migration were the [slug] routes for the changelog. My troubles with them helped me learn a great deal about Next.JS routing and how the framework deals with markdown files. 
+
+As I was finishing up the migration, I was speaking with one of the developers who gave me nudges when I got stuck and generally acted as a sounding board when I got frustrated with the project - [Christian Jørgensen](https://www.linkedin.com/in/christian-j%C3%B8rgensen-a127a856/). As he was listening to me talk about how I wanted to do more development he recommended I create a portfolio website, something I had seen was being asked for at a number of companies for developer role applications. 
+
+This is that site. 
+
+## The build process
+
+I've never been amazing at 'building things from scratch', especially in areas where I'm still very much a learner. My learning process tends to involve taking things apart and putting them back together again. That or trying to change how something works and then hacking away at it until I figure out what I'm doing wrong.
+
+Fortuantely for me, Next.JS provides a number of templates. I knew when starting out that I didn't want to do anything too complex. This is a portfolio after all. It should highlight content, not drown them in an over designed components. 
+
+So I launched my Next.JS app starter on CodeSandbox and set about changing the homepage to start with. If you compare it with that starter. you won't notice a huge amount of differences, but this did require I learn some typescript and tailwind. 
+
+Then it was time actually make a way to show the content. Despite the frustrations, I had enjoyed working with Next.JS and markdown when migrating the CodeSandbox site. Most of my difficulty with it was making the pages routing methods work on the app router. 
+
+So I looked at a few markdown templates, and stole elements from a bunch of them. Most blog templates just opened on the content, but I didn't want that. I wanted people to be able to filter and pick what they wanted to explore from the homepage before seeing the posts themselves. This led me to using contentlayer to generate the content, and introduced me to useful packages like date-fns and reading-time. These in my opinion not only make the site look more professional, but will also make it more scaleable as I iterate on it. 
+
+The end result is now around you, but this isn't the only site I've been working on. I'm also working on a website for a writing project that I'm currently doing: 
+
+Home Page: 
+
+<img src="/posts/sitebuildpphome.png"></img>
+
+Chapter Page:
+
+<img src="/posts/sitebuildppchap.png"></img>
+
+If you've read my [office msd post](officemsd) you'll know I'm a big fan of the LCARs aesthetic (the font choice for this site - Antonio is the closest Google font to the one used for those interfaces) and given the topic of the writing project, it was an appropriate choice. 
+
+But this has taught me even more about Next.js, Typescript and Tailwind. 
+
+## Future Plans 
+
+Obviously, I want to do more with this site in the future! One of the next projects I'm planning is moving the hosting away from Vercel and onto my Raspberry pi 5, using [Coolify](https://coolify.io/). A project that's being developed by another of my ex-CodeSandbox colleagues. 
+
+Stay tuned for that and other projects in the future. 
+
+
+
+
+
+
+
