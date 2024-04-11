@@ -15,7 +15,7 @@ export function Header() {
     <nav className="mb-12">
       <div className="mx-auto">
         <div className="relative flex h-16 items-center justify-between">
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <div className="absolute  flex items-center sm:hidden">
             <button
               onClick={toggleMobileMenu}
               type="button"
@@ -27,16 +27,20 @@ export function Header() {
               <MenuIcon className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div className="flex flex-1 items-center justify-center sm:absolute sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
               <Link href="/" className="text-sm font-black mr-6">
                 {process.env.NEXT_PUBLIC_SITE_NAME}
               </Link>
             </div>
-            <div className="hidden sm:flex sm:items-center">
-              <div className="space-x-6 text-sm font-medium">
+          </div>
+          <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center ">
+            <div className="">
+              <div className="space-x-6 text-md font-medium">
                 <Link href="/">Home</Link>
                 <Link href="/about">About</Link>
+                <Link href="/resume">Resume</Link>
+                <Link href="mailto:jamesamey2000@gmail.com">Contact</Link>
               </div>
             </div>
           </div>
@@ -58,6 +62,19 @@ export function Header() {
         <div>
           <Link href="/about" onClick={toggleMobileMenu}>
             About
+          </Link>
+        </div>
+        <div>
+          <Link href="/resume" onClick={toggleMobileMenu}>
+            Resume
+          </Link>
+        </div>
+        <div>
+          <Link
+            href="mailto:jamesamey2000@gmail.com"
+            onClick={toggleMobileMenu}
+          >
+            Contact
           </Link>
         </div>
       </div>
