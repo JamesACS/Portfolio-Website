@@ -5,6 +5,9 @@ import { notFound } from "next/navigation";
 import { allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
 import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 import { Mdx } from "@/mdx-components";
 
@@ -69,45 +72,47 @@ export default async function PostPage({ params }: PostProps) {
       </header>
 
       <article className="prose dark:prose-invert max-h-full max-w-full mb-12">
-        {post.image && (
-          <div className="relative mb-12 h-96 w-full">
-            <Image
-              className="m-0 w-full rounded-lg object-cover"
-              src={post.image}
-              alt={post.title}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
-          </div>
-        )}
-
-        <header>
-          <h1 className="mb-2">{post.title}</h1>
-          {post.description && (
-            <p className="mb-6 mt-0 text-xl text-gray-700 dark:text-colortext">
-              {post.description}
-            </p>
+        <div className={montserrat.className}>
+          {post.image && (
+            <div className="relative mb-12 h-96 w-full">
+              <Image
+                className="m-0 w-full rounded-lg object-cover"
+                src={post.image}
+                alt={post.title}
+                fill
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
           )}
-          <p className="space-x-1 text-xs text-tertiary">
-            <span>{format(parseISO(post.date), "MMMM dd, yyyy")}</span>
-            <span>{` • `}</span>
-            <span>{post.readingTime.text}</span>
-            <span>{` • `}</span>
-            <span>
-              <Link
-                href={`/blog/categories/${encodeURIComponent(
-                  post.category.toLowerCase(),
-                )}`}
-                className="text-tertiary underline underline-offset-2 "
-              >
-                {post.category}
-              </Link>
-            </span>
-          </p>
-        </header>
-        <hr className="my-6" />
-        <Mdx code={post.body.code} />
+
+          <header>
+            <h1 className="mb-2">{post.title}</h1>
+            {post.description && (
+              <p className="mb-6 mt-0 text-xl text-gray-700 dark:text-colortext">
+                {post.description}
+              </p>
+            )}
+            <p className="space-x-1 text-xs text-tertiary">
+              <span>{format(parseISO(post.date), "MMMM dd, yyyy")}</span>
+              <span>{` • `}</span>
+              <span>{post.readingTime.text}</span>
+              <span>{` • `}</span>
+              <span>
+                <Link
+                  href={`/blog/categories/${encodeURIComponent(
+                    post.category.toLowerCase(),
+                  )}`}
+                  className="text-tertiary underline underline-offset-2 "
+                >
+                  {post.category}
+                </Link>
+              </span>
+            </p>
+          </header>
+          <hr className="my-6" />
+          <Mdx code={post.body.code} />
+        </div>
       </article>
       <div className="pb-10">
         <footer className="flex items-center space-x-1">
