@@ -2,8 +2,10 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { allPages } from "contentlayer/generated";
 import Image from "next/image";
-
 import { Mdx } from "@/mdx-components";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({ subsets: ["latin"] });
 
 interface PageProps {
   params: {
@@ -52,22 +54,24 @@ export default async function PagePage({ params }: PageProps) {
 
   return (
     <article className="prose dark:prose-invert max-w-full mb-12">
-      {page.image && (
-        <div className="relative mb-12 h-96 w-full">
-          <Image
-            className="m-0 w-full rounded-lg object-cover"
-            src={page.image}
-            alt={page.title}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
-        </div>
-      )}
-      <h1>{page.title}</h1>
-      {page.description && <p className="text-xl">{page.description}</p>}
-      <hr className="my-6" />
-      <Mdx code={page.body.code} />
+      <div className={montserrat.className}>
+        {page.image && (
+          <div className="relative mb-12 h-96 w-full">
+            <Image
+              className="m-0 w-full rounded-lg object-cover"
+              src={page.image}
+              alt={page.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
+        <h1 className="text-center">{page.title}</h1>
+        {page.description && <p className="text-xl">{page.description}</p>}
+        <hr className="my-6" />
+        <Mdx code={page.body.code} />
+      </div>
     </article>
   );
 }
