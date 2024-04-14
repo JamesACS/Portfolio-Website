@@ -46,6 +46,10 @@
         "branch": false,
         "resume": false
       }
+    },
+    "npm install @headlessui/react@latest": {
+      "name": "install headlessui",
+      "command": "npm install @headlessui/react@latest"
     }
   }
 }

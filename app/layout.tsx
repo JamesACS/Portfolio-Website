@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Antonio } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
-// import { ThemeProvider } from "@/components/themeProvider";
+import { ThemeProvider } from "@/components/themeProvider";
 import "./globals.css";
 
 const antonio = Antonio({ subsets: ["latin"] });
@@ -20,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={antonio.className}>
-        <div className="mx-auto max-w-5xl px-4 py-10">
-          {/* <ThemeProvider attribute="class" defaultTheme="system" enableSystem> */}
-          <Header />
-          <main>{children}</main>
-          <Footer />
-          {/* </ThemeProvider> */}
+        <div className="mx-auto max-w-5xl px-4 py-10 ">
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </ThemeProvider>
         </div>
       </body>
     </html>
