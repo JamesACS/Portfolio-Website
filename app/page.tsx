@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import Testimonials from "@/components/testimonials";
+import TestimonialsSlider from "@/components/testimonialsSlider";
 
 export default function Home() {
   return (
@@ -75,7 +75,7 @@ export default function Home() {
         </Link>
       </div>
 
-      <Testimonials />
+      <TestimonialsSlider />
     </main>
   );
 }
