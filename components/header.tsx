@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { MenuIcon } from "lucide-react";
 
-// import { ThemeSwitcher } from "./themeSwitcher";
+import { ThemeSwitcher } from "./themeSwitcher";
 
 export function Header() {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -27,15 +27,15 @@ export function Header() {
               <MenuIcon className="h-5 w-5" />
             </button>
           </div>
-          <div className="flex flex-1 items-center justify-center sm:absolute sm:items-stretch sm:justify-start">
+          <div className="flex flex-1 items-center justify-center ml-6 sm:ml-0 sm:absolute sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <Link href="/" className="text-sm font-black mr-6">
+              <Link href="/" className="text-sm font-black">
                 {process.env.NEXT_PUBLIC_SITE_NAME}
               </Link>
             </div>
           </div>
           <div className="hidden sm:flex sm:flex-1 sm:items-center sm:justify-center ">
-            <div className="">
+            <div className="ml-6">
               <div className="space-x-6 text-md font-medium">
                 <Link href="/">Home</Link>
                 <Link href="/about">About</Link>
@@ -44,7 +44,7 @@ export function Header() {
               </div>
             </div>
           </div>
-          {/* <ThemeSwitcher /> */}
+          <ThemeSwitcher />
         </div>
       </div>
 
