@@ -12,7 +12,7 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileOpen(!isMobileOpen);
 
   return (
-    <nav className="mb-12">
+    <nav className="mb-9">
       <div className="mx-auto">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute  flex items-center sm:hidden">

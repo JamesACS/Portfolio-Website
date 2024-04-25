@@ -1,17 +1,16 @@
-import Image from "next/image";
 import Link from "next/link";
 import TestimonialsSlider from "@/components/testimonialsSlider";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-evenly">
+    <main className="min-h-screen flex flex-col items-center justify-evenly">
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:opacity-30 before:bg-gradient-radial before:from-colorquinternary before:to-transparent before:blur-3xl before:content-[''] after:absolute after:-z-20 after:h-[300px] after:w-[350px] after:translate-x-1/2 after:bg-gradient-conic after:opacity-50 after:from-sky-900 after:via-colorsuccessdark after:blur-3xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:via-colorquinternary before:dark:opacity-20 after:dark:from-sky-900 after:dark:via-colorsuccessdark after:dark:opacity-60 before:lg:h-[360px] z-[-1]">
-        <p className="relative text-5xl text-black dark:text-white dark:drop-shadow-[0_0_0.4rem_#ffffff70] ">
+        <p className="relative text-5xl text-black dark:text-white dark:drop-shadow-[0_0_0.4rem_#ffffff70] mb-9 ">
           James Amey
         </p>
       </div>
 
-      <div className="relative grid items-center text-center text-black lg:max-w-5xl lg:grid-cols-4  dark:text-white">
+      <div className="relative grid justify-evenly items-center text-center text-black lg:max-w-5xl lg:grid-cols-4  dark:text-white mb-9">
         <Link
           href="/blog/categories/coding"
           className="group rounded-sm border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -74,7 +73,6 @@ export default function Home() {
           </p>
         </Link>
       </div>
-
       <TestimonialsSlider />
     </main>
   );
