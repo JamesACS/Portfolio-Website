@@ -9,6 +9,7 @@ import TestimonialImg01 from "@/public/testimonials/ives.png";
 import TestimonialImg02 from "@/public/testimonials/necoline.png";
 import TestimonialImg03 from "@/public/testimonials/ioana.png";
 import TestimonialImg04 from "@/public/testimonials/joana.png";
+import TestimonialImg05 from "@/public/testimonials/tamas.png";
 
 interface Testimonial {
   img: StaticImageData;
@@ -27,7 +28,7 @@ export default function TestimonialsSlider() {
   const testimonials: Testimonial[] = [
     {
       img: TestimonialImg01,
-      url: "https://www.linkedin.com/in/necoline/",
+      url: "https://www.linkedin.com/in/ivesvh/",
       quote:
         "From all the people that I've worked with, James is one of the people who has shown most ownership, reliability and clear communication. It's a joy to work with him, and you can be certain that he gets the job done when asked. He set up the whole support system at CodeSandbox, and even took on extra work like rewriting our website to a new technology stack",
       name: "Ives van Hoorne",
@@ -43,7 +44,7 @@ export default function TestimonialsSlider() {
     },
     {
       img: TestimonialImg03,
-      url: "https://www.linkedin.com/in/necoline/",
+      url: "https://www.linkedin.com/in/ioanachiorean/",
       quote:
         "I was lucky to work directly with James Amey on different initiatives that involved Engineering and Support. He always showed professionalism and cultivated and improved a community and customer support system. His involvement went beyond the role by helping both Product and Engineering with feedback, ideas, and solutions too. He is an instrumental part of dealing with customer success and community building. His attention to requests, managing priorities and severity of multiple tracks and products at times, was always impressive!",
       name: "Ioana Chiorean",
@@ -51,11 +52,19 @@ export default function TestimonialsSlider() {
     },
     {
       img: TestimonialImg04,
-      url: "https://www.linkedin.com/in/necoline/",
+      url: "https://www.linkedin.com/in/joana-telker/",
       quote:
         "It is a pleasure to collaborate with James. He takes great pride in driving process improvement initiatives and compliance matters. It’s been very refreshing to work with James because he concerns himself with matters beyond his responsibilities and gets involved where reinforcement is needed regardless of his role. I also very much appreciate his support in helping us shape our company culture. He has been fantastic about getting new team members integrated.",
       name: "Joana Telker",
       role: "People Operations Manager",
+    },
+    {
+      img: TestimonialImg05,
+      url: "https://www.linkedin.com/in/tamasszuromi/",
+      quote:
+        "What truly sets James apart is his proactive approach to problem-solving. He not only addressed incoming issues with expertise and empathy but also anticipated potential challenges, offering proactive solutions that enhanced our overall support experience. Beyond his technical proficiency, James is a fantastic collaborator and team player. He seamlessly integrated feedback, communicated effectively with everybody, and fostered a positive working environment that contributed to our collective success.",
+      name: "Tamas Szuromi",
+      role: "Product Manager & Data Analyst",
     },
   ];
 
