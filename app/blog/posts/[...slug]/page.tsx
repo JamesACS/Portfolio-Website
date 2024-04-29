@@ -64,7 +64,7 @@ export default async function PostPage({ params }: PostProps) {
             post.category.toLowerCase(),
           )}`}
         >
-          <ChevronLeftSquare className=" h-6 w-6" />
+          <ChevronLeftSquare className=" h-6 w-6 mt-0.5" />
         </Link>
         <h1 className="text-1xl">
           <span className="font-semibold">Back</span>

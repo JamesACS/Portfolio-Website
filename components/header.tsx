@@ -61,7 +61,7 @@ export function Header() {
                 <Popover className="inline-flex">
                   {({ open }) => (
                     <>
-                      <Popover.Button className="group inline-flex items-center  hover:opacity-90 focus:outline-none ">
+                      <Popover.Button className="group inline-flex items-center hover:opacity-90 focus:outline-none ">
                         <span>Contact</span>
                       </Popover.Button>
 

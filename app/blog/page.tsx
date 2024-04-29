@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { allPosts } from "contentlayer/generated";
 import { format, parseISO } from "date-fns";
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
 
 import {
   Card,
@@ -21,7 +21,13 @@ allPosts.sort((a, b) => {
 
 export default function Blog() {
   return (
-    <div>
+    <div className="space-y-12">
+      <header className="flex items-center space-x-2">
+        <Link href="/">
+          <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
+        </Link>
+        <h1 className="text-3xl">All Blog Posts</h1>
+      </header>
       {allPosts.map((post) => (
         <article key={post._id} className="mb-12">
           <Card>

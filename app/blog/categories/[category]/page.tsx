@@ -46,10 +46,10 @@ export default async function CategoryPostsPage({ params }: PostProps) {
     <div className="space-y-12">
       <header className="flex items-center space-x-2">
         <Link href="/">
-          <ChevronLeftSquare className="h-6 w-6" />
+          <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
         </Link>
         <h1 className="text-3xl">
-          <span className="font-semibold">{posts[0].category}</span> blog posts
+          <span className="font-semibold">{posts[0].category}</span> Blog Posts
         </h1>
       </header>
 
