@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
 import { Transition } from "@headlessui/react";
 import { Linkedin } from "lucide-react";
 
@@ -10,6 +11,7 @@ import TestimonialImg02 from "@/public/testimonials/necoline.png";
 import TestimonialImg03 from "@/public/testimonials/ioana.png";
 import TestimonialImg04 from "@/public/testimonials/joana.png";
 import TestimonialImg05 from "@/public/testimonials/tamas.png";
+import TestimonialImg06 from "@/public/testimonials/oskar.png";
 
 interface Testimonial {
   img: StaticImageData;
@@ -66,6 +68,14 @@ export default function TestimonialsSlider() {
       name: "Tamas Szuromi",
       role: "Product Manager & Data Analyst",
     },
+    {
+      img: TestimonialImg06,
+      url: "https://www.linkedin.com/in/vaneeden/",
+      quote:
+        "For years he’s been a driving force in customer support and has shown tremendous adaptation skills in handling different tasks: from streamlining how a product team categorizes and learns from support channel feedback, designing weekly reporting all the way up to handling vendor deals with an awareness of economics.",
+      name: "Oskar van Eeden",
+      role: "Head of Business Operations",
+    },
   ];
 
   useEffect(() => {
@@ -105,13 +115,15 @@ export default function TestimonialsSlider() {
                 leaveFrom="opacity-100 rotate-0"
                 leaveTo="opacity-0 rotate-[60deg]"
               >
-                <Image
-                  className="relative top-11 left-1/2 -translate-x-1/2 rounded-sm"
-                  src={testimonial.img}
-                  width={56}
-                  height={56}
-                  alt={testimonial.name}
-                />
+                <a href={testimonial.url} target={"_blank"} rel={"noreferrer"}>
+                  <Image
+                    className="relative top-11 left-1/2 -translate-x-1/2 rounded-sm"
+                    src={testimonial.img}
+                    width={56}
+                    height={56}
+                    alt={testimonial.name}
+                  />
+                </a>
               </Transition>
             ))}
           </div>
@@ -151,10 +163,16 @@ export default function TestimonialsSlider() {
             }}
           >
             <h2>{testimonial.name} </h2>{" "}
-            <h2
-              className={`${active === index ? "text-indigo-200" : "text-slate-300"}`}
-            ></h2>{" "}
             <p className="opacity-50 text-xs">{testimonial.role}</p>
+            <a
+              target="_blank"
+              href={testimonial.url}
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="px-4 text-gray-5s00 hover:text-blue-500"
+            >
+              <Linkedin className="h-4 w-4 fill-current inline-block align-middle" />
+            </a>
           </button>
         ))}
       </div>
