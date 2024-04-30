@@ -2,7 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
-import Link from "next/link";
 import { Transition } from "@headlessui/react";
 import { Linkedin } from "lucide-react";
 
@@ -98,7 +97,7 @@ export default function TestimonialsSlider() {
   }, []);
 
   return (
-    <div className=" min-h-[350px] w-full max-w-3xl mx-auto text-center mb-9">
+    <div className="min-h-[500px] w-full max-w-3xl mx-auto text-center ">
       {/* Testimonial image */}
       <div className="relative h-32">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[480px] pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-b before:from-colorlink/25 before:via-indigo-500/5 before:via-25% before:to-indigo-500/0 before:to-75% before:rounded-full before:-z-10">
