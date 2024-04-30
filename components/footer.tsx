@@ -3,7 +3,7 @@ import { TwitterIcon, Linkedin } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="flex justify-center">
+    <footer className="flex justify-center mt-9">
       <div className="space-y-10 ">
         <nav className="space-x-6 text-center text-sm font-medium text-gray-500">
           <Link href="/">Home</Link>
