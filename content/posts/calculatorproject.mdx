@@ -1,0 +1,60 @@
+---
+title: The Calculator Project
+description: Thanks to Frontend Masters, I finally did it.
+date: "2024-05-17"
+category: Coding
+image: /posts/calculatorproject.png
+---
+
+## But why? 
+
+The calculator project is a classic. Anybody that has ever learned, or attempted to learn Javascript will have come across it. I myself have attempted it multiple times, but never gotten around to completing it. I blame the ADHD... Which probably explains why I was able to sit down and do it now that I have medication. 
+
+I wanted to take it on to have something extra to add to this coding section, prove to myself that I can do it and being completely honest, also just to recap some of the JS fundamentals. 
+
+I've been on and off learning Javascript for years at this point, my coding ability jumped leaps and bounds after my CodeClan course last year, but that advancement pointed me to Next.JS and the CodeSandbox website. 
+
+In short, I felt I had a bit of a knowledge gap. I still do. That could be imposter syndrome, could just be my 'you never stop learning mindset' or just irrational fears. 
+
+But what better way to address any of those, than to go back to basics and test your ability. 
+
+## My approach
+
+I didn't want to try and create a calculator completely blind. As said, this motivation came from fear of a knowledge gap. Throwing myself at the project without guidance was a recipe for disaster. Fortunately, I have a [Frontend Masters](https://frontendmasters.com/) login. They had an easy to follow bootcamp covering not only the [HTML/CSS](https://frontendmasters.com/bootcamp/calculator-html-css/), but [Javascript](https://frontendmasters.com/bootcamp/calculator-javascript/) part too. 
+
+Yep, I even went back to the HTML/CSS basics and as always, found myself either remembering or learning different ways to do things! 
+
+## The project: 
+
+If you want to play around with the completed Calculator and take a peek at the Code, you can do so in this Sandbox: 
+
+<div className="w-2XL h-full items-center">
+<iframe src="https://codesandbox.io/p/devbox/7xj565?embed=1&file=%2Fsrc%2Fcalculator.js"
+title="calculatorproject"
+style={{width: "100%", height: 1450}}
+allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+> </iframe>
+</div>
+
+## Beyond the course
+
+If you were to look at the [Frontend Masters code](https://github.com/FrontendMasters/bootcamp/tree/master/static/exercises/5-github.zip) you may notice that there are a few differences. While I know this was just a fundamentals exercise, I always like to build on an end product. Even though it's a basic calculator, I wanted to fix some of the rougher edges before writing this post. 
+
+So if you compare you'll notice that my calculator: 
+
+- Shows the clicked symbol on the screen, instead of resetting to 0 between inputs 
+
+- Will reset to 0 if you click a number when the result of the equation is on screen, instead of adding the number to the end of the string. But still allows you to expand on your current answer. 
+
+- Will reset to 0 if you hit = twice to clear the calculator, instead of just leaving the last result on the screen if you press = repeatedly
+
+- May occasionally have a bug where the first number you input is cleared by the second number. I can't replicate this consistently, so it may just be user error/a mouse issue. But you've got to be upfront about these things! 
+
+- Still has the bug where using a the back arrow to clear after you've entered the symbol will not erase the previous operator. I tried a few fixes but none worked consistently! But it's always good to have something to come back to in the future... 
+
+All in all. A fun exercise, test of knowledge and recap. 
+
+
+
+
