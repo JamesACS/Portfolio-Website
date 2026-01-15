@@ -44,11 +44,11 @@ export default function Home() {
               James Amey
             </h1>
             <p className="text-xl md:text-2xl text-neutral-600 dark:text-neutral-400 mb-2 -mt-1">
-              Support Leader • Developer • Builder
+              Support Engineer • Developer • Writer
             </p>
             <p className="text-sm text-neutral-500 dark:text-neutral-500 max-w-xl mx-auto mb-10">
-              Solving complex problems with technology, building communities, 
-              and occasionally writing about Star Trek.
+              Solving complex problems with technology, building delightful support experiences, 
+              and often writing about Star Trek.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 mb-10">

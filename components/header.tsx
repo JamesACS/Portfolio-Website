@@ -47,7 +47,7 @@ export function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="text-lg font-bold tracking-tight hover:text-colordanger transition-colors"
+            className="text-lg pl-5 font-bold tracking-tight hover:text-colordanger transition-colors"
           >
             {process.env.NEXT_PUBLIC_SITE_NAME || "James Amey"}
           </Link>
@@ -82,7 +82,7 @@ export function Header() {
               </PopoverPanel>
             </Popover>
 
-            <div className="ml-2 pl-2 border-l border-neutral-200 dark:border-neutral-700">
+            <div className="ml-2 pl-5 pr-5 border-l border-neutral-200 dark:border-neutral-700">
               <ThemeSwitcher />
             </div>
           </div>
