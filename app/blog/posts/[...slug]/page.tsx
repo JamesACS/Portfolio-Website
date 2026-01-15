@@ -2,132 +2,162 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "@/lib/content";
 import { format, parseISO } from "date-fns";
-import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
-import { Montserrat } from "next/font/google";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
-
+import { ChevronLeftIcon, CalendarIcon, ClockIcon, TagIcon } from "lucide-react";
+import { ScrollAnimation } from "@/components/scrollAnimation";
 import { Mdx } from "@/mdx-components";
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug?.join("/");
-  const post = allPosts.find((post) => post.slugAsParams === slug);
-
-  if (!post) {
-    null;
-  }
-
-  return post;
+function getPostFromParams(slug: string[]) {
+  const slugPath = slug?.join("/");
+  const post = allPosts.find((post) => post.slugAsParams === slugPath);
+  return post || null;
 }
 
-export async function generateMetadata({
-  params,
-}: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostFromParams(slug);
 
-  if (!post) {
-    return {};
-  }
+  if (!post) return {};
 
   return {
-    title: post.title,
+    title: `${post.title} | James Amey`,
     description: post.description,
   };
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post.slugAsParams.split("/"),
   }));
 }
 
 export default async function PostPage({ params }: PostProps) {
-  const post = await getPostFromParams(params);
+  const { slug } = await params;
+  const post = getPostFromParams(slug);
 
   if (!post) {
     notFound();
   }
 
   return (
-    <div className="space-y-8">
-      <header className="flex items-center space-x-1">
-        <Link
-          href={`/blog/categories/${encodeURIComponent(
-            post.category.toLowerCase(),
-          )}`}
-        >
-          <ChevronLeftSquare className=" h-6 w-6 mt-0.5" />
-        </Link>
-        <h1 className="text-1xl">
-          <span className="font-semibold">Back</span>
-        </h1>
-      </header>
+    <article>
+      {/* Back navigation */}
+      <Link
+        href={`/blog/categories/${encodeURIComponent(post.category.toLowerCase())}`}
+        className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-colordanger transition-colors mb-8"
+      >
+        <ChevronLeftIcon className="h-4 w-4" />
+        Back to {post.category}
+      </Link>
 
-      <article className="prose dark:prose-invert max-h-full max-w-full mb-12">
-        <div className={montserrat.className}>
-          {post.image && (
-            <div className="relative mb-12 h-96 w-full">
-              <Image
-                className="m-0 w-full rounded-lg object-cover"
-                src={post.image}
-                alt={post.title}
-                fill
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              />
-            </div>
+      {/* Hero image */}
+      {post.image && (
+        <ScrollAnimation animation="scale">
+          <div className="relative h-64 md:h-80 w-full rounded-2xl overflow-hidden mb-8">
+            <Image
+              src={post.image}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, 800px"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+          </div>
+        </ScrollAnimation>
+      )}
+
+      {/* Header */}
+      <ScrollAnimation animation="fade-up">
+        <header className="mb-8">
+          {/* Category badge */}
+          <Link
+            href={`/blog/categories/${encodeURIComponent(post.category.toLowerCase())}`}
+            className="inline-block text-xs font-medium px-3 py-1 rounded-full bg-colordanger/10 text-colordanger hover:bg-colordanger hover:text-white transition-colors mb-4"
+          >
+            {post.category}
+          </Link>
+
+          {/* Title */}
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 leading-tight">
+            {post.title}
+          </h1>
+
+          {/* Description */}
+          {post.description && (
+            <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-6">
+              {post.description}
+            </p>
           )}
 
-          <header>
-            <h1 className="mb-2">{post.title}</h1>
-            {post.description && (
-              <p className="mb-6 mt-0 text-xl text-gray-700 dark:text-colortext">
-                {post.description}
-              </p>
-            )}
-            <p className="space-x-1 text-xs text-tertiary">
-              <span>{format(parseISO(post.date), "MMMM dd, yyyy")}</span>
-              <span>{` • `}</span>
-              <span>{post.readingTime.text}</span>
-              <span>{` • `}</span>
-              <span>
+          {/* Meta info */}
+          <div className="flex flex-wrap items-center gap-4 text-sm text-neutral-500 dark:text-neutral-400">
+            <span className="flex items-center gap-1.5">
+              <CalendarIcon className="h-4 w-4" />
+              {format(parseISO(post.date), "MMMM d, yyyy")}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <ClockIcon className="h-4 w-4" />
+              {post.readingTime.text}
+            </span>
+          </div>
+
+          {/* Tags */}
+          {post.tags.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mt-4">
+              <TagIcon className="h-4 w-4 text-neutral-400" />
+              {post.tags.map((tag) => (
                 <Link
-                  href={`/blog/categories/${encodeURIComponent(
-                    post.category.toLowerCase(),
-                  )}`}
-                  className="text-tertiary underline underline-offset-2 "
+                  key={tag}
+                  href={`/blog/tags/${encodeURIComponent(tag.toLowerCase())}`}
+                  className="text-xs px-2.5 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-colordanger hover:text-white transition-colors"
                 >
-                  {post.category}
+                  {tag}
                 </Link>
-              </span>
-            </p>
-          </header>
-          <hr className="my-6" />
-          <Mdx code={post.body.code} />
+              ))}
+            </div>
+          )}
+        </header>
+      </ScrollAnimation>
+
+      {/* LCARS divider */}
+      <div className="lcars-bar mb-8" />
+
+      {/* Content */}
+      <ScrollAnimation animation="fade-up" delay={100}>
+        <div className="prose-custom">
+          <Mdx code={post.body} />
         </div>
-      </article>
-      <div className="pb-10">
-        <footer className="flex items-center space-x-1">
+      </ScrollAnimation>
+
+      {/* Footer */}
+      <div className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">
+        <div className="lcars-bar mb-6" />
+        
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <Link
-            href={`/blog/categories/${encodeURIComponent(
-              post.category.toLowerCase(),
-            )}`}
+            href={`/blog/categories/${encodeURIComponent(post.category.toLowerCase())}`}
+            className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-colordanger transition-colors"
           >
-            <ChevronLeftSquare className=" h-6 w-6" />
+            <ChevronLeftIcon className="h-4 w-4" />
+            More {post.category} posts
           </Link>
-          <h1 className="text-1xl">
-            <span className="font-semibold">Back</span>
-          </h1>
-        </footer>
+          
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-100 dark:bg-neutral-800 text-sm font-medium hover:bg-colordanger hover:text-white transition-colors"
+          >
+            View all posts
+          </Link>
+        </div>
       </div>
-    </div>
+    </article>
   );
 }

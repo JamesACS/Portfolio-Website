@@ -1,15 +1,23 @@
 import type { Metadata } from "next";
-import { Antonio } from "next/font/google";
+import { Antonio, Montserrat } from "next/font/google";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { ThemeProvider } from "@/components/themeProvider";
 import "./globals.css";
 
-const antonio = Antonio({ subsets: ["latin"] });
+const antonio = Antonio({ 
+  subsets: ["latin"],
+  variable: "--font-antonio",
+});
+
+const montserrat = Montserrat({ 
+  subsets: ["latin"],
+  variable: "--font-montserrat",
+});
 
 export const metadata: Metadata = {
-  title: "James Amey's Portfolio",
-  description: "Various projects from the mind of James Amey",
+  title: "James Amey | Support Leader, Developer, Builder",
+  description: "Portfolio and blog of James Amey - solving complex problems with technology, building communities, and occasionally writing about Star Trek.",
 };
 
 export default function RootLayout({
@@ -18,15 +26,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={antonio.className}>
-        <div className=" mx-auto max-w-5xl px-4 py-10 ">
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </ThemeProvider>
-        </div>
+    <html lang="en" suppressHydrationWarning className={`${antonio.variable} ${montserrat.variable}`}>
+      <body className={`${antonio.className} antialiased`}>
+        <ThemeProvider 
+          attribute="class" 
+          defaultTheme="system" 
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-1 mx-auto w-full max-w-5xl px-4 py-6">
+              <Header />
+              <main>{children}</main>
+            </div>
+            <div className="mx-auto w-full max-w-5xl px-4">
+              <Footer />
+            </div>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -3,15 +3,40 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 15, 15, 15;
+  --background-start-rgb: 250, 250, 252;
+  --background-end-rgb: 240, 240, 245;
+  
+  /* LCARS-inspired accent colors */
+  --lcars-orange: #ff9900;
+  --lcars-blue: #99ccff;
+  --lcars-purple: #cc99cc;
+  --lcars-peach: #ffcc99;
+  
+  /* Smooth transitions for theme switching */
+  --transition-theme: 0.3s ease-in-out;
 }
 
 .dark {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --foreground-rgb: 240, 240, 245;
+  --background-start-rgb: 10, 10, 12;
+  --background-end-rgb: 5, 5, 8;
+}
+
+/* Smooth theme transition */
+html {
+  transition: 
+    background-color var(--transition-theme),
+    color var(--transition-theme);
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
 }
 
 @media (max-width: 640px) {
@@ -28,8 +53,122 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  transition: background var(--transition-theme), color var(--transition-theme);
 }
 
+/* LCARS-inspired decorative elements */
+.lcars-corner {
+  position: relative;
+}
+
+.lcars-corner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 100%;
+  background: var(--lcars-orange);
+  border-radius: 0 0 0 20px;
+}
+
+@keyframes lcars-expand {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.lcars-bar {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--lcars-orange) 0%,
+    var(--lcars-orange) 20%,
+    transparent 20%,
+    transparent 22%,
+    var(--lcars-blue) 22%,
+    var(--lcars-blue) 45%,
+    transparent 45%,
+    transparent 47%,
+    var(--lcars-purple) 47%,
+    var(--lcars-purple) 70%,
+    transparent 70%,
+    transparent 72%,
+    var(--lcars-peach) 72%,
+    var(--lcars-peach) 100%
+  );
+  border-radius: 2px;
+  transform-origin: center center;
+  animation: lcars-expand 0.6s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+/* Scroll-triggered animation utilities */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-on-scroll-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-on-scroll-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-on-scroll-scale {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Stagger children animations */
+.stagger-children > * {
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+}
+
+.stagger-children.is-visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(2) { transition-delay: 75ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(3) { transition-delay: 150ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(4) { transition-delay: 225ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(5) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(6) { transition-delay: 375ms; opacity: 1; transform: translateY(0); }
+
+/* Anchor styling */
 .anchor {
   @apply absolute invisible -ml-5 cursor-pointer w-5;
 }
@@ -49,4 +188,289 @@ body {
 .anchor:after {
   @apply text-gray-300 dark:text-gray-600;
   content: "#";
+}
+
+/* Bento grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: minmax(120px, auto);
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 20px 25px -5px rgb(0 0 0 / 0.1),
+    0 8px 10px -6px rgb(0 0 0 / 0.1);
+}
+
+.dark .card-hover:hover {
+  box-shadow: 
+    0 20px 25px -5px rgb(0 0 0 / 0.3),
+    0 8px 10px -6px rgb(0 0 0 / 0.3),
+    0 0 0 1px rgba(255, 153, 0, 0.1);
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass-card {
+  background: rgba(20, 20, 25, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Custom prose styling for MDX content */
+.prose-custom {
+  @apply text-neutral-700 dark:text-neutral-300;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+}
+
+.prose-custom h1 {
+  @apply text-3xl font-bold mt-10 mb-4 text-neutral-900 dark:text-white;
+}
+
+.prose-custom h2 {
+  @apply text-2xl font-bold mt-10 mb-4 text-neutral-900 dark:text-white;
+  @apply flex items-center gap-3;
+}
+
+.prose-custom h2::before {
+  content: "";
+  @apply w-1 h-6 bg-colordanger rounded-full shrink-0;
+}
+
+.prose-custom h3 {
+  @apply text-xl font-semibold mt-8 mb-3 text-neutral-800 dark:text-neutral-100;
+}
+
+.prose-custom h4 {
+  @apply text-lg font-semibold mt-6 mb-2 text-neutral-700 dark:text-neutral-200;
+}
+
+.prose-custom h5 {
+  @apply text-base font-medium mt-4 mb-2 text-neutral-600 dark:text-neutral-300;
+}
+
+.prose-custom p {
+  @apply mb-4 leading-relaxed;
+}
+
+.prose-custom a {
+  @apply text-colordanger hover:text-colordangerbright underline underline-offset-2 transition-colors;
+}
+
+.prose-custom strong {
+  @apply font-semibold text-neutral-900 dark:text-white;
+}
+
+.prose-custom ul:not(.not-prose ul) {
+  @apply mb-4 pl-0 space-y-2;
+}
+
+.prose-custom ul:not(.not-prose ul) li {
+  @apply relative pl-6;
+}
+
+.prose-custom ul:not(.not-prose ul) li::before {
+  content: "";
+  @apply absolute left-0 top-2.5 w-2 h-2 bg-colordanger/60 rounded-full;
+}
+
+/* Remove default bullets inside not-prose containers */
+.prose-custom .not-prose ul li::before {
+  content: none;
+}
+
+.prose-custom ol {
+  @apply mb-4 pl-6 space-y-2 list-decimal;
+}
+
+.prose-custom ol li {
+  @apply pl-2;
+}
+
+.prose-custom ol li::marker {
+  @apply text-colordanger font-semibold;
+}
+
+.prose-custom blockquote {
+  @apply border-l-4 border-colordanger pl-4 py-2 my-6 italic text-neutral-600 dark:text-neutral-400 bg-neutral-50 dark:bg-neutral-800/50 rounded-r-lg;
+}
+
+.prose-custom code {
+  @apply px-1.5 py-0.5 bg-neutral-100 dark:bg-neutral-800 rounded text-sm font-mono text-colordanger;
+}
+
+.prose-custom pre {
+  @apply p-4 bg-neutral-900 dark:bg-neutral-950 rounded-xl overflow-x-auto my-6;
+}
+
+.prose-custom pre code {
+  @apply bg-transparent p-0 text-neutral-100;
+}
+
+.prose-custom hr {
+  @apply my-8 border-neutral-200 dark:border-neutral-800;
+}
+
+.prose-custom img {
+  @apply rounded-xl my-6 shadow-lg;
+}
+
+.prose-custom table {
+  @apply w-full my-6 border-collapse;
+}
+
+.prose-custom th {
+  @apply text-left p-3 bg-neutral-100 dark:bg-neutral-800 font-semibold border-b-2 border-colordanger;
+}
+
+.prose-custom td {
+  @apply p-3 border-b border-neutral-200 dark:border-neutral-700;
+}
+
+.prose-custom tr:hover td {
+  @apply bg-neutral-50 dark:bg-neutral-800/50;
+}
+
+/* Resume-specific layout improvements */
+.resume-layout h2 {
+  @apply text-2xl mt-12 first:mt-0;
+}
+
+.resume-layout h3 {
+  @apply text-lg font-bold text-neutral-900 dark:text-white mt-6 mb-1;
+}
+
+.resume-layout h4 {
+  @apply text-base font-medium text-colordanger mt-1 mb-0;
+}
+
+.resume-layout h5 {
+  @apply text-sm text-neutral-500 dark:text-neutral-400 mt-1 mb-3;
+}
+
+.resume-layout > div {
+  @apply p-4 rounded-xl glass-card mb-4;
+}
+
+.resume-layout ul {
+  @apply mb-2;
+}
+
+.resume-layout ul li {
+  @apply text-sm;
+}
+
+/* Don't add default bullets in resume - we use custom colored ones */
+.resume-layout ul li::before {
+  content: none !important;
+}
+
+/* Page load animations */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  opacity: 0;
+  animation: fade-in-up 0.5s ease-out forwards;
+}
+
+/* Resume page load animations */
+@keyframes resume-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.resume-layout {
+  animation: resume-fade-in 0.6s ease-out forwards;
+}
+
+.resume-layout h2 {
+  opacity: 0;
+  animation: resume-fade-in 0.5s ease-out forwards;
+  animation-delay: 0.1s;
+}
+
+.resume-layout h2:nth-of-type(2) {
+  animation-delay: 0.2s;
+}
+
+.resume-layout h2:nth-of-type(3) {
+  animation-delay: 0.3s;
+}
+
+.resume-layout h2:nth-of-type(4) {
+  animation-delay: 0.4s;
+}
+
+.resume-layout > p {
+  opacity: 0;
+  animation: resume-fade-in 0.5s ease-out forwards;
+  animation-delay: 0.15s;
+}
+
+.resume-layout .not-prose {
+  opacity: 0;
+  animation: resume-fade-in 0.5s ease-out forwards;
+  animation-delay: 0.25s;
+}
+
+.resume-layout .not-prose:nth-of-type(2) {
+  animation-delay: 0.35s;
+}
+
+.resume-layout .not-prose:nth-of-type(3) {
+  animation-delay: 0.45s;
+}
+
+/* Hero gradient background */
+.hero-gradient {
+  background: 
+    radial-gradient(ellipse at 20% 0%, rgba(255, 153, 0, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(153, 204, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(204, 153, 204, 0.05) 0%, transparent 70%);
+}
+
+.dark .hero-gradient {
+  background: 
+    radial-gradient(ellipse at 20% 0%, rgba(255, 153, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(153, 204, 255, 0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(204, 153, 204, 0.03) 0%, transparent 70%);
 }
