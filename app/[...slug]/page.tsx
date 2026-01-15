@@ -76,7 +76,7 @@ export default async function PagePage({ params }: PageProps) {
             <div>
               <h1 className="text-3xl md:text-4xl font-bold mb-3">{page.title}</h1>
               <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
-                Support Leader • Developer • Builder
+                Support Engineer • Developer • Writer
               </p>
               <div className="flex gap-3">
                 <a

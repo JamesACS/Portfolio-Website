@@ -38,7 +38,7 @@ export function Footer() {
             {process.env.NEXT_PUBLIC_SITE_NAME || "James Amey"}
           </Link>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
-            Support Leader • Developer • Builder
+            Support Engineer • Developer • Writer
           </p>
         </div>
 
