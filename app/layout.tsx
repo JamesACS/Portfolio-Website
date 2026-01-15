@@ -16,8 +16,8 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: "James Amey | Support Leader, Developer, Builder",
-  description: "Portfolio and blog of James Amey - solving complex problems with technology, building communities, and occasionally writing about Star Trek.",
+  title: "James Amey | Support Engineer, Developer, Writer",
+  description: "Solving complex problems with technology, building delightful support experiences, and often writing about Star Trek.",
 };
 
 export default function RootLayout({
