@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "@/lib/content";
 import { format, parseISO } from "date-fns";
 import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
 
@@ -13,7 +13,7 @@ import {
   CardTitle,
 } from "@/components/card";
 
-allPosts.sort((a, b) => {
+const sortedPosts = [...allPosts].sort((a, b) => {
   const aDate = new Date(a.date).valueOf();
   const bDate = new Date(b.date).valueOf();
   return bDate - aDate;
@@ -28,8 +28,8 @@ export default function Blog() {
         </Link>
         <h1 className="text-3xl">All Blog Posts</h1>
       </header>
-      {allPosts.map((post) => (
-        <article key={post._id} className="mb-12">
+      {sortedPosts.map((post) => (
+        <article key={post.slugAsParams} className="mb-12">
           <Card>
             {post.image && (
               <div className="relative h-60 w-full">

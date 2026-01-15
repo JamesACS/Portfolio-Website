@@ -2,9 +2,9 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "@/lib/content";
 import { format, parseISO } from "date-fns";
-import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
+import { ChevronLeftSquare } from "lucide-react";
 import { Montserrat } from "next/font/google";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
@@ -12,17 +12,17 @@ const montserrat = Montserrat({ subsets: ["latin"] });
 import { Mdx } from "@/mdx-components";
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string[];
-  };
+  }>;
 }
 
-async function getPostFromParams(params: PostProps["params"]) {
-  const slug = params?.slug?.join("/");
-  const post = allPosts.find((post) => post.slugAsParams === slug);
+function getPostFromParams(slug: string[]) {
+  const slugPath = slug?.join("/");
+  const post = allPosts.find((post) => post.slugAsParams === slugPath);
 
   if (!post) {
-    null;
+    return null;
   }
 
   return post;
@@ -31,7 +31,8 @@ async function getPostFromParams(params: PostProps["params"]) {
 export async function generateMetadata({
   params,
 }: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+  const { slug } = await params;
+  const post = await getPostFromParams(slug);
 
   if (!post) {
     return {};
@@ -43,14 +44,15 @@ export async function generateMetadata({
   };
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export async function generateStaticParams() {
   return allPosts.map((post) => ({
     slug: post.slugAsParams.split("/"),
   }));
 }
 
 export default async function PostPage({ params }: PostProps) {
-  const post = await getPostFromParams(params);
+  const { slug } = await params;
+  const post = await getPostFromParams(slug);
 
   if (!post) {
     notFound();
@@ -111,7 +113,7 @@ export default async function PostPage({ params }: PostProps) {
             </p>
           </header>
           <hr className="my-6" />
-          <Mdx code={post.body.code} />
+          <Mdx code={post.body} />
         </div>
       </article>
       <div className="pb-10">

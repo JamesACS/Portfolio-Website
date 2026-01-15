@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { MenuIcon } from "lucide-react";
-import { Popover } from "@headlessui/react";
+import { Popover, PopoverButton, PopoverPanel } from "@headlessui/react";
 
 import { ThemeSwitcher } from "./themeSwitcher";
 
@@ -58,28 +58,27 @@ export function Header() {
                 <Link className="hover:opacity-90" href="/resume">
                   Resume
                 </Link>
-                <Popover className="inline-flex">
-                  {({ open }) => (
-                    <>
-                      <Popover.Button className="group inline-flex items-center hover:opacity-90 focus:outline-none ">
-                        <span>Contact</span>
-                      </Popover.Button>
+                <Popover className="inline-flex relative">
+                  <PopoverButton className="group inline-flex items-center hover:opacity-90 focus:outline-none">
+                    <span>Contact</span>
+                  </PopoverButton>
 
-                      <Popover.Panel className="absolute mt-8    ">
-                        <div className="relative grid">
-                          {contactMethods.map((item) => (
-                            <a
-                              key={item.name}
-                              href={item.href}
-                              className=" flex items-center p-2 -translate-x-7 transition duration-150 ease-in-out  focus:outline-none focus-visible:ring hover:opacity-90 "
-                            >
-                              <p>{item.name}</p>
-                            </a>
-                          ))}
-                        </div>
-                      </Popover.Panel>
-                    </>
-                  )}
+                  <PopoverPanel
+                    anchor="bottom"
+                    className="absolute mt-2 z-10 bg-white dark:bg-neutral-900 rounded-md shadow-lg"
+                  >
+                    <div className="relative grid p-2">
+                      {contactMethods.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className="flex items-center p-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-none"
+                        >
+                          <p>{item.name}</p>
+                        </a>
+                      ))}
+                    </div>
+                  </PopoverPanel>
                 </Popover>
               </div>
             </div>
@@ -122,30 +121,27 @@ export function Header() {
           </Link>
         </div>
         <div>
-          <Popover className="inline-flex">
-            {({ open }) => (
-              <>
-                <Popover.Button className="group inline-flex items-center  hover:opacity-90 focus:outline-none ">
-                  <span>Contact</span>
-                </Popover.Button>
+          <Popover className="inline-flex relative">
+            <PopoverButton className="group inline-flex items-center hover:opacity-90 focus:outline-none">
+              <span>Contact</span>
+            </PopoverButton>
 
-                <Popover.Panel className="absolute mt-6    ">
-                  <div className="relative grid">
-                    {contactMethods.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className=" flex items-center   transition duration-150 ease-in-out  focus:outline-none focus-visible:ring hover:opacity-90 "
-                      >
-                        <div className="mt-4">
-                          <p>{item.name}</p>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </Popover.Panel>
-              </>
-            )}
+            <PopoverPanel
+              anchor="bottom"
+              className="absolute mt-2 z-10 bg-white dark:bg-neutral-900 rounded-md shadow-lg"
+            >
+              <div className="relative grid p-2">
+                {contactMethods.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="flex items-center p-2 transition duration-150 ease-in-out rounded-md hover:bg-gray-100 dark:hover:bg-neutral-800 focus:outline-none"
+                  >
+                    <p>{item.name}</p>
+                  </a>
+                ))}
+              </div>
+            </PopoverPanel>
           </Popover>
         </div>
       </div>

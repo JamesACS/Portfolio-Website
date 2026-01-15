@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "@/lib/content";
 import { format, parseISO } from "date-fns";
 import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
 
@@ -13,34 +13,45 @@ import {
   CardTitle,
 } from "@/components/card";
 
-interface PostProps {
-  params: {
+interface CategoryPageProps {
+  params: Promise<{
     category: string;
-  };
+  }>;
 }
 
-async function getPostsFromParams(params: PostProps["params"]) {
-  const category = params?.category;
-  const posts = allPosts.filter(
-    (post) => post.category.toLowerCase() === category.toLowerCase(),
-  );
-  return posts;
+function getPostsByCategory(category: string) {
+  return allPosts
+    .filter((post) => post.category.toLowerCase() === category.toLowerCase())
+    .sort((a, b) => {
+      const aDate = new Date(a.date).valueOf();
+      const bDate = new Date(b.date).valueOf();
+      return bDate - aDate;
+    });
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
-  return allPosts.filter((post) => ({
-    category: post.category,
+export async function generateStaticParams() {
+  const categories = [...new Set(allPosts.map((post) => post.category.toLowerCase()))];
+  return categories.map((category) => ({
+    category,
   }));
 }
 
-export default async function CategoryPostsPage({ params }: PostProps) {
-  const posts = await getPostsFromParams(params);
+export default async function CategoryPostsPage({ params }: CategoryPageProps) {
+  const { category } = await params;
+  const categoryPosts = getPostsByCategory(category);
 
-  posts.sort((a, b) => {
-    const aDate = new Date(a.date).valueOf();
-    const bDate = new Date(b.date).valueOf();
-    return bDate - aDate;
-  });
+  if (categoryPosts.length === 0) {
+    return (
+      <div className="space-y-12">
+        <header className="flex items-center space-x-2">
+          <Link href="/">
+            <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
+          </Link>
+          <h1 className="text-3xl">No posts found in this category</h1>
+        </header>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-12">
@@ -49,12 +60,12 @@ export default async function CategoryPostsPage({ params }: PostProps) {
           <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
         </Link>
         <h1 className="text-3xl">
-          <span className="font-semibold">{posts[0].category}</span> Blog Posts
+          <span className="font-semibold">{categoryPosts[0].category}</span> Blog Posts
         </h1>
       </header>
 
-      {posts.map((post) => (
-        <article key={post._id} className="mb-12">
+      {categoryPosts.map((post) => (
+        <article key={post.slugAsParams} className="mb-12">
           <Card>
             {post.image && (
               <div className="relative h-60 w-full">

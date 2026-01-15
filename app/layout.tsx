@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={antonio.className}>
         <div className=" mx-auto max-w-5xl px-4 py-10 ">
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
