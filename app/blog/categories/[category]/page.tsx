@@ -1,17 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allPosts } from "@/lib/content";
+import { allPosts, getPostsByCategory, getAllCategories } from "@/lib/content";
 import { format, parseISO } from "date-fns";
-import { ArrowRightIcon, ChevronLeftSquare } from "lucide-react";
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/card";
+import { ArrowRightIcon, ChevronLeftIcon, TagIcon } from "lucide-react";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -19,19 +10,9 @@ interface CategoryPageProps {
   }>;
 }
 
-function getPostsByCategory(category: string) {
-  return allPosts
-    .filter((post) => post.category.toLowerCase() === category.toLowerCase())
-    .sort((a, b) => {
-      const aDate = new Date(a.date).valueOf();
-      const bDate = new Date(b.date).valueOf();
-      return bDate - aDate;
-    });
-}
-
 export async function generateStaticParams() {
-  const categories = [...new Set(allPosts.map((post) => post.category.toLowerCase()))];
-  return categories.map((category) => ({
+  const categories = getAllCategories();
+  return categories.map(({ category }) => ({
     category,
   }));
 }
@@ -44,81 +25,144 @@ export default async function CategoryPostsPage({ params }: CategoryPageProps) {
     return (
       <div className="space-y-12">
         <header className="flex items-center space-x-2">
-          <Link href="/">
-            <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
+          <Link href="/" className="p-2 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors">
+            <ChevronLeftIcon className="h-5 w-5" />
           </Link>
-          <h1 className="text-3xl">No posts found in this category</h1>
+          <h1 className="text-3xl font-bold">No posts found</h1>
         </header>
       </div>
     );
   }
 
+  // Get unique tags for this category
+  const categoryTags = [...new Set(categoryPosts.flatMap((post) => post.tags))];
+
+  // Determine bento grid spans based on index
+  const getGridSpan = (index: number, total: number) => {
+    if (total === 1) return "md:col-span-4 md:row-span-2";
+    if (total === 2) return "md:col-span-2 md:row-span-2";
+    if (index === 0) return "md:col-span-2 md:row-span-2";
+    if (index === 1) return "md:col-span-2 md:row-span-1";
+    if (index === 2) return "md:col-span-2 md:row-span-1";
+    return "md:col-span-1 md:row-span-1";
+  };
+
   return (
-    <div className="space-y-12">
-      <header className="flex items-center space-x-2">
-        <Link href="/">
-          <ChevronLeftSquare className="h-6 w-6 mt-1.5" />
+    <div className="space-y-8">
+      {/* Header */}
+      <header>
+        <Link 
+          href="/" 
+          className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-colordanger transition-colors mb-4"
+        >
+          <ChevronLeftIcon className="h-4 w-4" />
+          Back to Home
         </Link>
-        <h1 className="text-3xl">
-          <span className="font-semibold">{categoryPosts[0].category}</span> Blog Posts
-        </h1>
+        
+        <div className="flex items-center gap-3 mb-2">
+          <span className="w-1 h-8 bg-colordanger rounded-full" />
+          <h1 className="text-4xl font-bold capitalize">{category}</h1>
+        </div>
+        
+        <p className="text-neutral-500 dark:text-neutral-400 ml-4">
+          {categoryPosts.length} {categoryPosts.length === 1 ? "post" : "posts"} in this category
+        </p>
       </header>
 
-      {categoryPosts.map((post) => (
-        <article key={post.slugAsParams} className="mb-12">
-          <Card>
+      {/* Tags filter */}
+      {categoryTags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-2">
+          <TagIcon className="h-4 w-4 text-neutral-400" />
+          {categoryTags.map((tag) => (
+            <Link
+              key={tag}
+              href={`/blog/tags/${encodeURIComponent(tag.toLowerCase())}`}
+              className="text-xs px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-colordanger hover:text-white transition-colors"
+            >
+              {tag}
+            </Link>
+          ))}
+        </div>
+      )}
+
+      {/* Bento Grid */}
+      <div className="bento-grid">
+        {categoryPosts.map((post, index) => (
+          <Link
+            key={post.slugAsParams}
+            href={post.slug}
+            className={`group relative rounded-xl overflow-hidden glass-card card-hover ${getGridSpan(index, categoryPosts.length)}`}
+          >
+            {/* Background Image */}
             {post.image && (
-              <div className="relative h-60 w-full">
-                <Link href={post.slug}>
-                  <Image
-                    className="m-0 w-full rounded-t-lg object-cover"
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                  />
-                </Link>
+              <div className="absolute inset-0">
+                <Image
+                  src={post.image}
+                  alt={post.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
               </div>
             )}
-            <CardHeader>
-              <CardTitle className="m-0">
-                <Link href={post.slug} className="no-underline">
-                  {post.title}
-                </Link>
-              </CardTitle>
-              <CardDescription className="space-x-1 text-xs text-tertiary">
-                <span>{format(parseISO(post.date), "MMMM dd, yyyy")}</span>
-                <span>{` • `}</span>
-                <span>{post.readingTime.text}</span>
-                <span>{` • `}</span>
-                <span>
-                  <Link
-                    href={`/blog/categories/${encodeURIComponent(
-                      post.category.toLowerCase(),
-                    )}`}
-                    className="underline underline-offset-2"
-                  >
-                    {post.category}
-                  </Link>
+
+            {/* Content overlay */}
+            <div className={`relative z-10 p-5 h-full flex flex-col justify-end ${post.image ? "text-white" : ""}`}>
+              {/* Featured badge */}
+              {post.featured && (
+                <span className="absolute top-3 right-3 text-xs px-2 py-1 rounded-full bg-colordanger text-white">
+                  Featured
                 </span>
-              </CardDescription>
-            </CardHeader>
-            {post.description && (
-              <CardContent className="text-colortext">
-                {post.description}
-              </CardContent>
-            )}
-            <CardFooter>
-              <Link
-                href={post.slug}
-                className="inline-flex items-center space-x-2 rounded-sm bg-colordanger px-3 py-2 text-center text-sm font-medium text-white no-underline hover:bg-colordangerbright focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-colordanger dark:hover:bg-colordangerbright dark:focus:ring-secondaryhover"
-              >
-                <span>Read more</span>
-                <ArrowRightIcon className="h-5 w-5" />
-              </Link>
-            </CardFooter>
-          </Card>
-        </article>
-      ))}
+              )}
+
+              {/* Tags */}
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {post.tags.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className={`text-xs px-2 py-0.5 rounded-full ${
+                        post.image
+                          ? "bg-white/20 text-white/90"
+                          : "bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400"
+                      }`}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <h2 className={`font-bold mb-1 group-hover:text-colordanger transition-colors ${
+                index < 3 ? "text-xl" : "text-base"
+              }`}>
+                {post.title}
+              </h2>
+
+              {post.description && index < 3 && (
+                <p className={`text-sm mb-2 line-clamp-2 ${
+                  post.image ? "text-white/80" : "text-neutral-500 dark:text-neutral-400"
+                }`}>
+                  {post.description}
+                </p>
+              )}
+
+              <div className={`flex items-center gap-2 text-xs ${
+                post.image ? "text-white/60" : "text-neutral-400"
+              }`}>
+                <span>{format(parseISO(post.date), "MMM d, yyyy")}</span>
+                <span>•</span>
+                <span>{post.readingTime.text}</span>
+              </div>
+            </div>
+
+            {/* Hover arrow */}
+            <ArrowRightIcon className={`absolute bottom-4 right-4 h-5 w-5 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-300 ${
+              post.image ? "text-white" : "text-colordanger"
+            }`} />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

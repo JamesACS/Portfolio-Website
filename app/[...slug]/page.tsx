@@ -4,10 +4,8 @@ import { allPages } from "@/lib/content";
 import Image from "next/image";
 import Link from "next/link";
 import { Mdx } from "@/mdx-components";
-import { ChevronLeftSquare } from "lucide-react";
-import { Montserrat } from "next/font/google";
-
-const montserrat = Montserrat({ subsets: ["latin"] });
+import { ChevronLeftIcon } from "lucide-react";
+import { ScrollAnimation } from "@/components/scrollAnimation";
 
 interface PageProps {
   params: Promise<{
@@ -18,26 +16,17 @@ interface PageProps {
 function getPageFromParams(slug: string[]) {
   const slugPath = slug?.join("/");
   const page = allPages.find((page) => page.slugAsParams === slugPath);
-
-  if (!page) {
-    return null;
-  }
-
-  return page;
+  return page || null;
 }
 
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const page = await getPageFromParams(slug);
+  const page = getPageFromParams(slug);
 
-  if (!page) {
-    return {};
-  }
+  if (!page) return {};
 
   return {
-    title: page.title,
+    title: `${page.title} | James Amey`,
     description: page.description,
   };
 }
@@ -50,40 +39,139 @@ export async function generateStaticParams() {
 
 export default async function PagePage({ params }: PageProps) {
   const { slug } = await params;
-  const page = await getPageFromParams(slug);
+  const page = getPageFromParams(slug);
 
   if (!page) {
     notFound();
   }
 
+  // Check if this is the about page for special layout
+  const isAboutPage = page.slugAsParams === "about";
+  const isResumePage = page.slugAsParams === "resume";
+
   return (
-    <div className="space-y-12">
-      <header className="flex items-center space-x-2">
-        <Link href="/">
-          <ChevronLeftSquare className="h-6 w-6 mt-0.5" />
-        </Link>
-        <h1 className="font-semibold">Back</h1>
-      </header>
-      <article className="prose dark:prose-invert max-w-full mb-12">
-        <div className={montserrat.className}>
-          {page.image && (
-            <div className="relative mb-8 h-96 w-full">
+    <article>
+      {/* Back navigation */}
+      <Link
+        href="/"
+        className="inline-flex items-center gap-2 text-sm text-neutral-500 hover:text-colordanger transition-colors mb-8"
+      >
+        <ChevronLeftIcon className="h-4 w-4" />
+        Back to Home
+      </Link>
+
+      {/* Hero section for About page */}
+      {isAboutPage && page.image && (
+        <ScrollAnimation animation="scale">
+          <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+            <div className="relative w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden shrink-0 ring-4 ring-colordanger/20">
               <Image
-                className="m-0 w-full rounded-lg object-cover"
                 src={page.image}
                 alt={page.title}
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
               />
             </div>
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold mb-3">{page.title}</h1>
+              <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-4">
+                Support Leader • Developer • Builder
+              </p>
+              <div className="flex gap-3">
+                <a
+                  href="https://calendly.com/jamesamey/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-colordanger text-white text-sm font-medium hover:bg-colordangerbright transition-colors"
+                >
+                  Book a Call
+                </a>
+                <a
+                  href="mailto:jamesamey2000@gmail.com"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+                >
+                  Email Me
+                </a>
+              </div>
+            </div>
+          </div>
+        </ScrollAnimation>
+      )}
+
+      {/* Hero section for Resume page */}
+      {isResumePage && (
+        <div className="mb-12 animate-fade-in-up">
+          {page.image && (
+            <div className="relative w-full mb-6">
+              <div className="relative h-48 md:h-64 w-full rounded-2xl overflow-hidden">
+                <Image
+                  src={page.image}
+                  alt={page.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-4 pb-6">
+                <h1 className="text-3xl md:text-4xl font-bold text-white drop-shadow-lg">
+                  {page.title}
+                </h1>
+              </div>
+            </div>
           )}
-          <h1 className="text-center">{page.title}</h1>
-          {page.description && <p className="text-xl">{page.description}</p>}
-          <hr className="my-6" />
-          <Mdx code={page.body} />
+          <div className="flex flex-wrap gap-3 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+            <a
+              href="https://calendly.com/jamesamey/30min"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-colordanger text-white text-sm font-medium hover:bg-colordangerbright transition-colors"
+            >
+              Schedule Interview
+            </a>
+            <a
+              href="mailto:jamesamey2000@gmail.com"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neutral-300 dark:border-neutral-700 text-sm font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+            >
+              Contact Me
+            </a>
+          </div>
         </div>
-      </article>
-    </div>
+      )}
+
+      {/* Standard hero for other pages */}
+      {!isAboutPage && !isResumePage && (
+        <ScrollAnimation animation="fade-up">
+          <header className="mb-8">
+            {page.image && (
+              <div className="relative h-64 w-full rounded-2xl overflow-hidden mb-6">
+                <Image
+                  src={page.image}
+                  alt={page.title}
+                  fill
+                  priority
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">{page.title}</h1>
+            {page.description && (
+              <p className="text-lg text-neutral-600 dark:text-neutral-400">
+                {page.description}
+              </p>
+            )}
+          </header>
+        </ScrollAnimation>
+      )}
+
+      {/* LCARS divider */}
+      <div className="lcars-bar mb-8" />
+
+      {/* Content */}
+      <div className={`prose-custom ${isResumePage ? 'resume-layout' : ''}`}>
+        <Mdx code={page.body} />
+      </div>
+    </article>
   );
 }

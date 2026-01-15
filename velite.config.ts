@@ -13,18 +13,18 @@ const posts = defineCollection({
       date: s.isodate(),
       category: s.string(),
       image: s.string().optional(),
+      featured: s.boolean().default(false),
+      tags: s.array(s.string()).default([]),
       body: s.mdx(),
-      // Use s.path() to get the file path relative to content root
       path: s.path(),
     })
     .transform((data) => {
-      // Remove posts/ prefix to get just the slug
       const slugAsParams = data.path.replace(/^posts\//, "");
       
-      // Compute reading time from body length (approximation)
+      // Compute reading time from body length
       const wordsPerMinute = 200;
       const bodyLength = data.body.length;
-      const estimatedWords = Math.floor(bodyLength / 6); // rough estimate
+      const estimatedWords = Math.floor(bodyLength / 6);
       const minutes = Math.max(1, Math.ceil(estimatedWords / wordsPerMinute));
 
       return {
@@ -33,6 +33,8 @@ const posts = defineCollection({
         date: data.date,
         category: data.category,
         image: data.image,
+        featured: data.featured,
+        tags: data.tags,
         body: data.body,
         slug: `/blog/posts/${slugAsParams}`,
         slugAsParams,
@@ -57,7 +59,6 @@ const pages = defineCollection({
       path: s.path(),
     })
     .transform((data) => {
-      // Remove pages/ prefix to get just the slug
       const slugAsParams = data.path.replace(/^pages\//, "");
 
       return {

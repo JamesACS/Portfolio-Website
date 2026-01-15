@@ -2,12 +2,10 @@ import NextImage, { ImageProps } from "next/image";
 import * as runtime from "react/jsx-runtime";
 
 // Custom Image component that handles the fill prop correctly
-function Image(props: ImageProps & { fill?: boolean | string }) {
+function Image(props: Omit<ImageProps, "fill"> & { fill?: boolean }) {
   const { fill, ...rest } = props;
-  // Convert string "true" to boolean, handle boolean fill prop
-  const fillProp = fill === true || fill === "true" ? true : undefined;
   
-  if (fillProp) {
+  if (fill) {
     return <NextImage {...rest} fill />;
   }
   
@@ -19,8 +17,6 @@ function img(props: React.ImgHTMLAttributes<HTMLImageElement>) {
   const { src, alt, ...rest } = props;
   if (!src) return null;
   
-  // For external images or simple img tags, use a basic img
-  // For local images, we could use Next Image but need width/height
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img src={src} alt={alt || ""} className="rounded-lg" {...rest} />
