@@ -198,9 +198,9 @@ export default function Home() {
       <ScrollAnimation animation="fade-up">
         <section className="text-center py-12 px-6 rounded-2xl glass-card">
           <div className="lcars-bar mb-6" />
-          <h2 className="text-2xl font-bold mb-3">Let&apos;s Work Together</h2>
+          <h2 className="text-2xl font-bold mb-3">Let&apos;s Talk</h2>
           <p className="text-neutral-500 dark:text-neutral-400 mb-6 max-w-md mx-auto">
-            Interested in collaboration or just want to chat? I&apos;d love to hear from you.
+            Are you building a new Support team, or the next generationof Support tooling? If you would like some feedback on your ideas, or just want to have a chat. Please get in touch!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
@@ -209,7 +209,7 @@ export default function Home() {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff9900] text-white font-medium hover:bg-[#ffaa22] transition-all duration-300"
             >
-              Book a Meeting
+              Book 30 Minutes
             </a>
             <a
               href="mailto:jamesamey2000@gmail.com"
