@@ -200,7 +200,7 @@ export default function Home() {
           <div className="lcars-bar mb-6" />
           <h2 className="text-2xl font-bold mb-3">Let&apos;s Talk</h2>
           <p className="text-neutral-500 dark:text-neutral-400 mb-6 max-w-md mx-auto">
-            Are you building a new Support team, or the next generationof Support tooling? If you would like some feedback on your ideas, or just want to have a chat. Please get in touch!
+            Are you building a new Support team, or the next generation of Support tooling? If you would like some feedback on your ideas, or just want to have a chat. Please get in touch!
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <a
