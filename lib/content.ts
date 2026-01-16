@@ -82,7 +82,15 @@ export function getAllCategories(): { category: string; count: number }[] {
     categoryCounts.set(normalizedCategory, (categoryCounts.get(normalizedCategory) || 0) + 1);
   });
   
+  // Fixed category order
+  const categoryOrder = ["general", "coding", "writing", "building"];
+  
   return Array.from(categoryCounts.entries())
     .map(([category, count]) => ({ category, count }))
-    .sort((a, b) => b.count - a.count);
+    .sort((a, b) => {
+      const indexA = categoryOrder.indexOf(a.category);
+      const indexB = categoryOrder.indexOf(b.category);
+      // If not in the order list, put at the end
+      return (indexA === -1 ? 999 : indexA) - (indexB === -1 ? 999 : indexB);
+    });
 }

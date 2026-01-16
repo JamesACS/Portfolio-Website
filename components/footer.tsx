@@ -15,9 +15,9 @@ const socialLinks = [
     label: "LinkedIn",
   },
   {
-    href: "https://twitter.com/JamesAmeyUK",
+    href: "https://bsky.app/profile/jamesamey.bsky.social",
     icon: TwitterIcon,
-    label: "Twitter",
+    label: "Bluesky",
   },
   {
     href: "mailto:jamesamey2000@gmail.com",
@@ -28,13 +28,11 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-16 pt-8 border-t border-neutral-200 dark:border-neutral-800">
-      <div className="lcars-bar mb-8" />
-      
+    <footer className="mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800">      
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
         {/* Brand */}
         <div>
-          <Link href="/" className="text-lg font-bold hover:text-colordanger transition-colors">
+          <Link href="/" className="text-lg font-bold text-inherit hover:!text-[#d55138] transition-colors cursor-pointer">
             {process.env.NEXT_PUBLIC_SITE_NAME || "James Amey"}
           </Link>
           <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2">
@@ -52,7 +50,7 @@ export function Footer() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm text-neutral-600 dark:text-neutral-400 hover:text-colordanger transition-colors"
+                className="text-sm text-neutral-600 dark:text-neutral-400 hover:!text-[#d55138] transition-colors cursor-pointer"
               >
                 {link.label}
               </Link>
@@ -73,7 +71,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.label}
-                className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-colordanger hover:text-white transition-all duration-300"
+                className="p-2 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 hover:!bg-[#d55138] hover:!text-white transition-all duration-300 cursor-pointer"
               >
                 <link.icon className="h-5 w-5" />
               </a>
@@ -85,7 +83,7 @@ export function Footer() {
       <div className="text-center py-4 border-t border-neutral-200 dark:border-neutral-800">
         <p className="text-xs text-neutral-400">
           © {new Date().getFullYear()}{" "}
-          <Link href="/" className="hover:text-colordanger transition-colors">
+          <Link href="/" className="hover:!text-[#d55138] transition-colors cursor-pointer">
             {process.env.NEXT_PUBLIC_SITE_NAME || "James Amey"}
           </Link>
           . All rights reserved.
