@@ -213,8 +213,8 @@ export default function Home() {
             </a>
             <a
               href="mailto:jamesamey2000@gmail.com"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-neutral-300 dark:border-neutral-700 text-neutral-700 dark:text-neutral-300 font-medium hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all duration-300"
-            >
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#99ccff] text-black font-medium hover:bg-[#aaddff] transition-all duration-300 shadow-lg shadow-[#99ccff]/25 hover:shadow-[#99ccff]/40 hover:-translate-y-0.5"
+              >
               Send Email
             </a>
           </div>
