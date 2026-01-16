@@ -167,6 +167,7 @@ body {
 .stagger-children.is-visible > *:nth-child(4) { transition-delay: 225ms; opacity: 1; transform: translateY(0); }
 .stagger-children.is-visible > *:nth-child(5) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
 .stagger-children.is-visible > *:nth-child(6) { transition-delay: 375ms; opacity: 1; transform: translateY(0); }
+.stagger-children.is-visible > *:nth-child(n+7) { transition-delay: 450ms; opacity: 1; transform: translateY(0); }
 
 /* Anchor styling */
 .anchor {
