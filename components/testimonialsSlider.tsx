@@ -10,6 +10,10 @@ import TestimonialImg03 from "@/public/testimonials/ioana.png";
 import TestimonialImg04 from "@/public/testimonials/joana.png";
 import TestimonialImg05 from "@/public/testimonials/tamas.png";
 import TestimonialImg06 from "@/public/testimonials/oskar.png";
+import TestimonialImg07 from "@/public/testimonials/ian.png";
+import TestimonialImg08 from "@/public/testimonials/jamesw.png";
+import TestimonialImg09 from "@/public/testimonials/vishwajeet.png";
+import TestimonialImg10 from "@/public/testimonials/christian.png";
 
 interface Testimonial {
   img: StaticImageData;
@@ -21,9 +25,11 @@ interface Testimonial {
 
 export default function TestimonialsSlider() {
   const testimonialsRef = useRef<HTMLDivElement>(null);
+  const quoteRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [active, setActive] = useState<number>(0);
   const [previous, setPrevious] = useState<number | null>(null);
   const [autorotate, setAutorotate] = useState<boolean>(true);
+  const [fixedHeight, setFixedHeight] = useState<number | null>(null);
   const autorotateTiming: number = 7000;
 
   const testimonials: Testimonial[] = [
@@ -75,6 +81,38 @@ export default function TestimonialsSlider() {
       name: "Oskar van Eeden",
       role: "Head of Business Operations",
     },
+    {
+      img: TestimonialImg07,
+      url: "https://www.linkedin.com/in/ianrobertlyon/",
+      quote:
+        "James is one of a small handful of people I'd turn to if I need someone guaranteed to be great; there's not many people with the ability to turn their hand to pretty much anything, but James' approach to work and his adaptability have been absolutely stellar in every instance I've had the pleasure of working with him.\n\nHe's committed to doing things properly, with no half-measures, and every process or system he's ever touched has been improved immensely from his involvement.\n\nIf you hire James, you're getting someone with a deep well of experience across the board and the grit and tenacity to roll up his sleeves and put the work in to drive your company forward, whether that's by leading from the front or getting deeply involved in the minutiae, James works hard without ego or assumption and always delivers to an unbelievably high standard.",
+      name: "Ian Lyon",
+      role: "TechOps Lead",
+    },
+    {
+      img: TestimonialImg08,
+      url: "https://www.linkedin.com/in/jamesswhite/",
+      quote:
+        "I worked with James on the founding Support team at Together. I enjoyed collaborating and working with him as we tried to build out process and pipeline supporting our customers and sharing a common passion in making pizza. James comes with the ability to go both wide on technical topics but also dig deep. He also built tooling integrations into existing systems at Together to optimize and streamline our workflows. He has a mind for process and was someone I could bounce ideas off of. I think any team would benefit from his skill.",
+      name: "James White",
+      role: "Technical Account Manager",
+    },
+    {
+      img: TestimonialImg09,
+      url: "https://www.linkedin.com/in/vishwajeetdabholkar/",
+      quote:
+        "I have had the pleasure of working with James since I joined Together AI as a Customer Support Engineer, and I can confidently say he’s one of the most humble, kind, and enthusiastic people I’ve worked with.\n\n From day one, James made sure I felt comfortable and supported, he helped me ramp up quickly, walked me through our processes end-to-end, and ensured I never felt overwhelmed while settling into the role. In my first few weeks, he consistently guided me case by case, always taking the time to explain context, share best practices, and help me build confidence in my decisions.\n\nJames is not only deeply knowledgeable, but also exceptionally good at simplifying complex topics in the most approachable way. He has been a guide, a mentor, and a great friend, and I would highly recommend working with him, whether as a teammate or under his leadership.",
+      name: "Vishwajeet Dabholkar",
+      role: "Customer Support Engineer",
+    },
+    {
+      img: TestimonialImg10,
+      url: "https://www.linkedin.com/in/christian-alfoni-a127a856/",
+      quote:
+        "Earlier in my career I did work with support and customer care. In a very different domain, but I got first hands experience on what it means to build customer relationships through support and how to navigate that incredibly tricky space of managing customer expectations, showing dedication and taking the time to find that human connection.\n\nWorking with James at CodeSandbox I experienced that same focus and value set. He is incredibly dedicated to his work. He is constantly looking for opportunities to improve the communication internally and externally. Often support can become this after thought in product development, but James sees support as an equally critical role. He wants to be there as the product develops, he demands time from product teams to talk about support and over time he makes support as natural part of product development and company strategies as any other role.",
+      name: "Christian Alfoni",
+      role: "Principal Engineer",
+    },
   ];
 
   const handleSetActive = (index: number) => {
@@ -99,25 +137,41 @@ export default function TestimonialsSlider() {
     }
   }, [previous]);
 
-  const heightFix = () => {
-    if (testimonialsRef.current && testimonialsRef.current.parentElement)
-      testimonialsRef.current.parentElement.style.height = `${testimonialsRef.current.clientHeight}px`;
-  };
-
+  // Calculate max height of all testimonials on mount
   useEffect(() => {
-    heightFix();
+    const calculateMaxHeight = () => {
+      const heights = quoteRefs.current
+        .filter((ref): ref is HTMLDivElement => ref !== null)
+        .map((ref) => ref.scrollHeight);
+      
+      if (heights.length > 0) {
+        const maxHeight = Math.max(...heights);
+        setFixedHeight(maxHeight);
+      }
+    };
+
+    // Small delay to ensure all elements are rendered
+    const timeout = setTimeout(calculateMaxHeight, 100);
+    
+    // Recalculate on window resize
+    window.addEventListener('resize', calculateMaxHeight);
+    
+    return () => {
+      clearTimeout(timeout);
+      window.removeEventListener('resize', calculateMaxHeight);
+    };
   }, []);
 
   const getImageClasses = (index: number) => {
     if (index === active) {
-      // Entering: fade in and rotate from tilted to straight
+      // Entering: fade in and rotate from left to straight
       return "opacity-100 rotate-0";
     }
     if (index === previous) {
-      // Leaving: fade out and rotate away
+      // Leaving: fade out and rotate to the right
       return "opacity-0 -rotate-[60deg]";
     }
-    // Hidden: positioned for next entry
+    // Hidden: positioned on the left, ready to rotate in
     return "opacity-0 rotate-[60deg]";
   };
 
@@ -134,16 +188,25 @@ export default function TestimonialsSlider() {
     return "opacity-0 translate-x-8 absolute inset-0 pointer-events-none";
   };
 
+  // Scale text size based on quote length
+  const getQuoteSizeClass = (quote: string) => {
+    const length = quote.length;
+    if (length < 250) return "text-xl";
+    if (length < 400) return "text-lg";
+    if (length < 600) return "text-base";
+    return "text-sm";
+  };
+
   return (
     <div className="w-full max-w-3xl mx-auto text-center">
       {/* Testimonial image */}
       <div className="relative h-32">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[480px] h-[480px] pointer-events-none before:absolute before:inset-0 before:bg-gradient-to-b before:from-colorlink/25 before:via-indigo-500/5 before:via-25% before:to-indigo-500/0 before:to-75% before:rounded-full before:-z-10">
-          <div className="h-32 [mask-image:_linear-gradient(0deg,transparent,theme(colors.white)_20%,theme(colors.white))]">
+          <div className="h-32">
             {testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className={`absolute inset-0 h-full -z-10 transition-all duration-700 ease-[cubic-bezier(0.68,-0.3,0.32,1)] ${getImageClasses(index)}`}
+                className={`absolute inset-0 h-full -z-10 transition-all duration-700 ease-[cubic-bezier(0.68,-0.3,0.32,1)] [mask-image:_linear-gradient(0deg,transparent_0%,theme(colors.white)_40%,theme(colors.white))] ${getImageClasses(index)}`}
               >
                 <a href={testimonial.url} target="_blank" rel="noreferrer">
                   <Image
@@ -160,14 +223,17 @@ export default function TestimonialsSlider() {
         </div>
       </div>
       {/* Text */}
-      <div className="mb-9 transition-all duration-150 delay-300 ease-in-out">
-        <div className="relative flex flex-col" ref={testimonialsRef}>
+      <div className="mb-9 flex items-center" style={fixedHeight ? { height: fixedHeight } : undefined}>
+        <div className="relative flex flex-col w-full" ref={testimonialsRef}>
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
               className={`transition-all duration-500 ease-in-out ${getTextClasses(index)}`}
             >
-              <div className="text-1xl w-1xl content-center before:content-['\201C'] after:content-['\201D'] min-h-[200px] sm:min-h-[125px] justify-center">
+              <div 
+                ref={(el) => { quoteRefs.current[index] = el; }}
+                className={`content-center before:content-['\\201C'] after:content-['\\201D'] justify-center whitespace-pre-line ${getQuoteSizeClass(testimonial.quote)}`}
+              >
                 {testimonial.quote}
               </div>
             </div>
