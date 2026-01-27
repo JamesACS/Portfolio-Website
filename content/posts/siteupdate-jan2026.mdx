@@ -1,0 +1,91 @@
+---
+title: Refactor and Redesign
+description: A new content system and complete visual overhaul
+date: "2026-01-27"
+category: Coding
+image: /posts/next-js-logo.jpg
+featured: true
+tags: ["Next.js", "React", "Web Development", "Portfolio", "Design"]
+---
+
+I first built this portfolio site a number of years ago just after a redundancy. I had some time, wanted to practice coding and had also just started work on [Pathfinder Project](https://pathfinderproject.website/) which shares some DNA with what this site was... About a month ago. 
+
+My original portfolio site was V1, Pathfinders first website was V2, I then refactored that site moving from the now abandoned Contentlayer to [Contentlayer2](https://github.com/timlrx/contentlayer2) so I could update the next version. In between I also built a blog that I'm quite proud of, that has yet to see the light of day. 
+
+This site ended up being a bit forgotten. But I've learned a lot in the past few years, and technology has rapidly evolved. So when I did turn my attention to this site, I ran into issues I had encountered with Pathfinder, but took a few different routes. Resulting in a full redesign. 
+
+## The Stack Migration
+
+The first order of business was updating my content pipeline. With Contentlayer abandoned, I weighed up a few alternatives - including Contentlayer2 used on Pathfinder before finally settling on: 
+
+### Velite
+
+Velite is a newer content SDK that's actively maintained and most importantly works with newer Next.js versions. While I was at it, I also introduced tags for posts (which have their own nav routes)! To move everything over I had to:
+
+- Create a new `velite.config.ts` to define my content schemas
+- Build a new `lib/content.ts` with utility functions for fetching my posts, categories, and tags
+- Update all of my page components to use the new content API
+- Clear out the old Contentlayer config.
+
+The site now builds faster and is (hopefully) easier to maintain! 
+
+### Clearing out the Clutter
+
+This site was V1, and oh my did the code show it. Despite using npm as my package manager I also had pnpm and yarn lock files? I can't even remember why. So in my clean up I:
+
+- Removed those redundant lock files
+- Updated Next.js and React to latest versions
+- Removed deprecated packages (so long, Contentlayer)
+
+## The Visual Redesign
+
+Once the functionality of the site was sorted, it was time to think about what I actually wanted it to look like. The V1 site shared a number of similarities with the Next.JS template in terms of it's core lay out. It wasn't reflective of me, my personality or what I hope people will think when they land here. 
+
+### LCARS-Inspired Design System
+
+If you've spoken to me at any point, you'll probably know I'm a Star Trek fan. I've always been a fan of the general aesthetic of the franchises fictional 24th century operating system and so I designed a colour palette inspired by it:
+
+- **Orange (#ff9900)** - Primary 
+- **Blue (#99ccff)** - Secondary 
+- **Lilac (#cc99cc)** - Tertiary
+- **Peach (#ffcc99)** - Highlights
+
+You can see this colour pattern flow left-to-right across the website on various components. The end result being a subtle nod to that LCARS aesthetic without it being overwhelming or distracting. 
+
+### New Stuff! 
+
+The old website didn't just look outdated, it felt it. There was even a long broken animation that I didn't catch when building it at the time. 
+
+But without further delay, here's some of the shiny new things I've added
+
+**ScrollAnimations** - Elements now fade-in, slide, or scale as they enter the viewport.
+
+**'Glass' Cards** - It is the trend right now, even if I disabled most of it on my iPhone. Still, I think it's tastefully done here with my new semi-transparent cards with a backdrop blur. Bonus, they work in both light and dark modes.
+
+**The Hero** - A major oversight when originally designing the site. But now there is a proper hero with a gradient background and animated colour bars.
+
+**Categories Bento Grid** - Each category now has its own icon, description, and colour. They're displayed in a responsive grid that adapts from 4 columns to a single column depending on the size of the viewport. 
+
+**Tag System** - Mentioned earlier, posts can now have multiple tags, and there's a new `/blog/tags/[tag]` route for browsing. Popular tags are also displayed on the main blog page.
+
+**Featured Posts** - On the previous version all the actual content was buried. So now the homepage now highlights featured posts with larger cards and images.
+
+**Reading Time** - A neat addition I bought over from Pathfinder. Each post displays an estimated reading time, calculated automatically from the content.
+
+**Improved Typography** - Written content had a complete overhaul with an improved heading hierarchy, styled lists with coloured bullets, and improved code block styling.
+
+**Brand colours** -  If you click through to my [resume](https://www.jamesamey.com/resume) you will spot that my former employers are in sections styled to match their main brand colour. 
+
+## Learnings
+
+First of all, I'm a better developer today than I was a few years ago. 
+
+But that's not just my own skill, it's the tools that I used. While much can be written about AI, for development if you have a clear vision and give structured prompts it can drastically cut down the time you need to spend on any one feature or bug. Cursor was my IDE of choice instead of CodeSandbox for V1, and as somebody with ADHD even when I wasn't using it to directly investigate problems I found it incredibly useful for keeping 'in the flow'. Bouncing ideas back and forth to figure out the best path forward. 
+
+## What's Next
+
+If you're reading this, my redesign is live, but there's always more to do. While I'm happy with how it looks now, I likely won't be in a few months. 
+
+In the mean time, I also need to get back to writing good content (and uploading many of my TrekCentral pieces from the past few years).
+
+If you spot any issues or have feedback, feel free to reach out. This site is a living project and I'm going to try not to leave it for over a year this time around...

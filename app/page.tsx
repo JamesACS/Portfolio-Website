@@ -72,6 +72,20 @@ export default function Home() {
         <div className="lcars-bar mt-8" />
       </section>
 
+      {/* Testimonials */}
+      <section className="mb-16">
+        <ScrollAnimation animation="fade-up">
+          <h2 className="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-3">
+            <span className="w-1 h-6 bg-[#cc99cc] rounded-full" />
+            What People Say
+          </h2>
+        </ScrollAnimation>
+        
+        <ScrollAnimation animation="scale">
+          <TestimonialsSlider />
+        </ScrollAnimation>
+      </section>
+
       {/* Categories Bento Grid */}
       <section className="mb-16">
         <ScrollAnimation animation="fade-up">
@@ -179,20 +193,6 @@ export default function Home() {
           </div>
         </section>
       )}
-
-      {/* Testimonials */}
-      <section className="mb-16">
-        <ScrollAnimation animation="fade-up">
-          <h2 className="text-2xl font-bold mb-8 text-center flex items-center justify-center gap-3">
-            <span className="w-1 h-6 bg-[#cc99cc] rounded-full" />
-            What People Say
-          </h2>
-        </ScrollAnimation>
-        
-        <ScrollAnimation animation="scale">
-          <TestimonialsSlider />
-        </ScrollAnimation>
-      </section>
 
       {/* CTA Section */}
       <ScrollAnimation animation="fade-up">
