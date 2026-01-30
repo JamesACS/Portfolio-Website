@@ -14,6 +14,7 @@ import TestimonialImg07 from "@/public/testimonials/ian.png";
 import TestimonialImg08 from "@/public/testimonials/jamesw.png";
 import TestimonialImg09 from "@/public/testimonials/vishwajeet.png";
 import TestimonialImg10 from "@/public/testimonials/christian.png";
+import TestimonialImg11 from "@/public/testimonials/dan.png";
 
 interface Testimonial {
   img: StaticImageData;
@@ -112,6 +113,14 @@ export default function TestimonialsSlider() {
         "Earlier in my career I did work with support and customer care. In a very different domain, but I got first hands experience on what it means to build customer relationships through support and how to navigate that incredibly tricky space of managing customer expectations, showing dedication and taking the time to find that human connection.\n\nWorking with James at CodeSandbox I experienced that same focus and value set. He is incredibly dedicated to his work. He is constantly looking for opportunities to improve the communication internally and externally. Often support can become this after thought in product development, but James sees support as an equally critical role. He wants to be there as the product develops, he demands time from product teams to talk about support and over time he makes support as natural part of product development and company strategies as any other role.",
       name: "Christian Alfoni",
       role: "Principal Engineer",
+    },
+    {
+      img: TestimonialImg11,
+      url: "https://www.linkedin.com/in/danwaters007/",
+      quote:
+        "As one of Together's first support engineers, and first based abroad, James had the tall task of managing support across a high-volume, US-based, product-led business. To address the sheer variety and technical depth required, James built tools, automation, and processes that the CX team relies on daily to understand & triage customer health and issues. Beyond his technical skillset, James is known for his friendly demeanor and problem-solving focus. James possesses a unique mix of strong critical thinking skills, genuine customer empathy, and the ability to just get things done, even when the rest of the team might be across an ocean.",
+      name: "Dan Waters",
+      role: "Staff Solutions Architect",
     },
   ];
 
